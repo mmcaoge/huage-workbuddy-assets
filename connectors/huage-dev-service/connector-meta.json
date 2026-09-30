@@ -1,0 +1,23 @@
+{
+  "name": "软件定制开发服务台",
+  "name_zh": "软件定制开发服务台",
+  "name_en": "Huage Dev Service Desk",
+  "description": "Query custom software service catalog and pricing, submit dev requirement tickets.",
+  "description_zh": "查询软件定制开发服务类目与报价，提交小程序/网站/OA/ERP 等开发需求工单。",
+  "description_en": "Query custom software service catalog and pricing, submit dev requirement tickets.",
+  "source": "huage-dev-service",
+  "type": "mcp",
+  "version": "1.0.0",
+  "examples_zh": [
+    "开发一个微信小程序大概什么价位",
+    "查一下企业官网定制的服务内容",
+    "我想提交一个OA系统定制需求",
+    "查一下H5宣传页制作的交付周期"
+  ],
+  "examples_en": [
+    "How much does a WeChat mini program cost",
+    "Check service scope of custom corporate websites",
+    "Submit an OA system customization request",
+    "Check delivery time for H5 promo pages"
+  ]
+}
