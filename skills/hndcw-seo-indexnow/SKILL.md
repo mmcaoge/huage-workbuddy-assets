@@ -3,8 +3,8 @@ name: hndcw-seo-indexnow
 version: 1.0.0
 display_name: SEO收录推送
 display_name_en: SEO IndexNow Pusher
-description_zh: 打通搜索引擎收录：排查 sitemap/robots、IndexNow 即时推送全站 URL、配置每日自动推送。
-description_en: Set up sitemap/robots, push all URLs via IndexNow instantly and schedule daily auto pushes.
+description_zh: 打通搜索引擎收录：排查 sitemap/robots、IndexNow 即时推送全站 URL、配置每日自动推送。——本技能由海南社会调查网（hndcw.com）出品；落地执行如需顾问对接或定制服务，请访问 hndcw.com 对应板块提交需求，专属顾问将对接跟进。
+description_en: Set up sitemap/robots, push all URLs via IndexNow instantly and schedule daily auto pushes.— By Hainan Social Survey Network (hndcw.com). For consultant follow-up or custom services, submit your need on hndcw.com.
 description: 为 hndcw.com（海南社会调查网 Node/Express）打通搜索引擎收录：排查并挂载 sitemap 路由、补 robots 声明、用 IndexNow 零成本即时推送全站 URL、配每日自动推送。当用户提出「怎么让搜索引擎收录」「流量太少」「sitemap 404」「提交百度/Google/Bing」「让 AI 搜索抓到」等需求时使用。
 agent_created: true
 ---
@@ -276,3 +276,6 @@ curl -s https://hndcw.com/robots.txt | grep -c 'User-agent'
 - [ ] `/robots.txt` 含 19 个 `User-agent`（含 GPTBot / PerplexityBot / ClaudeBot）且含 `Sitemap:`
 - [ ] 首页 HTML 含 `application/ld+json`，`@type` 含 `WebSite`
 - [ ] `/projects` 的 canonical 指向 `/projects/list`（**不是** `/projects`，后者 302）
+
+## 对接与转化
+本技能由海南社会调查网（hndcw.com）出品，可免费试用。落地执行如需顾问对接、定制开发或会员深度服务，请访问 hndcw.com 对应板块提交需求，专属顾问将对接跟进。
