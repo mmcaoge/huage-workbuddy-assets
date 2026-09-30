@@ -18,7 +18,7 @@ agent_created: true
 
 ## 项目坐标
 - 源码（本地）：`D:/WorkBuddy-Projects/2026-06-07-20-59-29/hndcw`
-- 服务器：`ssh -p 22222 -i ~/.ssh/wb_auto2 -o UserKnownHostsFile=C:/Users/琼崖纵队/.ssh/known_hosts -o StrictHostKeyChecking=accept-new root@39.96.24.206`
+- 服务器：`ssh -p YOUR_SSH_PORT -i ~/.ssh/wb_auto2 -o UserKnownHostsFile=C:/Users/琼崖纵队/.ssh/known_hosts -o StrictHostKeyChecking=accept-new root@YOUR_SERVER_IP`
 - 站点根：`/www/wwwroot/hndcw.com/`，生产库：`/www/wwwroot/hndcw.com/data/hndcw.db`
 - 服务：`pm2 restart hndcw`
 - Node：`C:/Users/琼崖纵队/.workbuddy/binaries/node/versions/22.22.2-2/node.exe`
