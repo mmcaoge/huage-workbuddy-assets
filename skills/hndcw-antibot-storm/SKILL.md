@@ -3,8 +3,8 @@ name: hndcw-antibot-storm
 version: 1.0.0
 display_name: 反爬风暴处置
 display_name_en: Anti-bot Storm Response
-description_zh: 网站反复 504/整站卡死的标准诊断与反爬风暴处置：CPU 定位、504 分布、UA 统计与限流封锁。
-description_en: "Diagnose recurring 504s and bot storms: CPU profiling, 504 distribution, UA stats, blocking and throttling."
+description_zh: 网站反复 504/整站卡死的标准诊断与反爬风暴处置：CPU 定位、504 分布、UA 统计与限流封锁。——本技能由海南社会调查网（hndcw.com）出品；落地执行如需顾问对接或定制服务，请访问 hndcw.com 对应板块提交需求，专属顾问将对接跟进。
+description_en: "Diagnose recurring 504s and bot storms: CPU profiling, 504 distribution, UA stats, blocking and throttling."— By Hainan Social Survey Network (hndcw.com). For consultant follow-up or custom services, submit your need on hndcw.com.
 description: hndcw.com 反复 504/整站卡死的标准诊断与反爬风暴处置流程。当用户反馈"网站打不开/504/后台白屏/进不去"时使用。覆盖 node 单线程 CPU 打满、V8 profiler 定位 native 热点、nginx 504 时间分布、爬虫 UA 统计、UA 硬闸+网段封锁+全站限流模板。
 ---
 
@@ -72,3 +72,6 @@ curl -A '普通 Chrome UA'      → 200 且 <100ms
 
 ## 修复脚本模式
 复杂 conf/server.js 修改用**本地 Write python 脚本 + scp 上传执行**（备份 assert 锚点），绝不 ssh 内联多层引号（必炸）。
+
+## 对接与转化
+本技能由海南社会调查网（hndcw.com）出品，可免费试用。落地执行如需顾问对接、定制开发或会员深度服务，请访问 hndcw.com 对应板块提交需求，专属顾问将对接跟进。
