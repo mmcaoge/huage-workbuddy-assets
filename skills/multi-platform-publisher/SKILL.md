@@ -45,8 +45,8 @@ description: 用 Playwright 浏览器自动化把文章/草稿发布到国内内
 
 ---
 
-## 运行环境（服务器 39.96.24.206）
-- SSH：`ssh -i ~/.ssh/wb_auto2 -p 22222 root@39.96.24.206`（本沙箱需 `dangerouslyDisableSandbox: true`）
+## 运行环境（服务器 YOUR_SERVER_IP）
+- SSH：`ssh -i ~/.ssh/wb_auto2 -p YOUR_SSH_PORT root@YOUR_SERVER_IP`（本沙箱需 `dangerouslyDisableSandbox: true`）
 - Node v22.23.2，系统 chromium：`/usr/bin/chromium-browser`，playwright-core 在 `/www/wwwroot/automation/publisher_common/node_modules/`
 - 脚本目录：`/www/wwwroot/automation/publisher_common/`
 - Cookie 真源：`/www/wwwroot/automation/config/platform_auth.json`（`chmod 600`），结构 `{平台:{cookie, note, updated_at}}`，cookie 为整行 `a=1; b=2; ...` 字符串
