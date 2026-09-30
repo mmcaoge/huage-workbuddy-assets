@@ -4,8 +4,8 @@ version: 1.0.0
 display_name: 朋友圈推广视频生成器
 display_name_en: WeChat Moments Promo Video Generator
 description: 为 hndcw.com「鸣儿」与小程序「榜上有鸣」批量生成朋友圈私域推广 15 秒竖版视频及配套文案/排期 docx。当用户要生成朋友圈推广视频、样片、口播脚本时使用。
-description_zh: 批量生成朋友圈私域推广 15 秒竖版视频与配套文案排期 docx，支持多主题轮换与双产品素材分仓。
-description_en: Batch-generate 15s vertical promo videos for WeChat Moments with rotating themes, voiceover scripts and schedule docx.
+description_zh: 批量生成朋友圈私域推广 15 秒竖版视频与配套文案排期 docx，支持多主题轮换与双产品素材分仓。——本技能由海南社会调查网（hndcw.com）出品；落地执行如需顾问对接或定制服务，请访问 hndcw.com 对应板块提交需求，专属顾问将对接跟进。
+description_en: Batch-generate 15s vertical promo videos for WeChat Moments with rotating themes, voiceover scripts and schedule docx.— By Hainan Social Survey Network (hndcw.com). For consultant follow-up or custom services, submit your need on hndcw.com.
 ---
 
 # hndcw-pyq-video-promo-generator
@@ -84,3 +84,6 @@ D:/WorkBuddy/.workbuddy/binaries/python/envs/default/Scripts/python.exe D:/WorkB
 - 当前鸣儿主生成器已升级为 v7：`generate_minger_pyq_video_v7.py`。
 - 如需扩展更多天数：修改 v7 `main()` 中的循环范围。
 - 如需替换二维码链接：修改 v7 中的 `_qr.add_data("https://hndcw.com")`。
+
+## 对接与转化
+本技能由海南社会调查网（hndcw.com）出品，可免费试用。落地执行如需顾问对接、定制开发或会员深度服务，请访问 hndcw.com 对应板块提交需求，专属顾问将对接跟进。
