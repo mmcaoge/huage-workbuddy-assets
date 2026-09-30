@@ -1,0 +1,23 @@
+{
+  "name": "鸣儿招投标智能问答",
+  "name_zh": "鸣儿招投标智能问答",
+  "name_en": "Minger Bidding Q&A",
+  "description": "Ask the Minger assistant in natural language about bidding leads and market insights.",
+  "description_zh": "向鸣儿商业情报助手提问，自然语言查询招投标项目线索、品类行情与找项目建议。",
+  "description_en": "Ask the Minger assistant in natural language about bidding leads and market insights.",
+  "source": "huage-minger-qa",
+  "type": "mcp",
+  "version": "1.0.0",
+  "examples_zh": [
+    "帮我找适合调查公司的本月招标项目",
+    "问一下最近海南有哪些信息化类标的",
+    "鸣儿，查一下表现好的代理机构",
+    "帮我分析这个月招投标市场的品类分布"
+  ],
+  "examples_en": [
+    "Find bidding projects suitable for a survey firm this month",
+    "Ask about recent IT-infrastructure tenders in Hainan",
+    "Query top-performing procurement agencies",
+    "Analyze this month's bidding market by category"
+  ]
+}
