@@ -3,8 +3,8 @@ name: hndcw-minger-search-debug
 version: 1.0.0
 display_name: AI助手检索调试
 display_name_en: AI Assistant Search Debug
-description_zh: 调试 AI 招投标助手检索链路：真机复现、LLM 入参抓取、分诊与跨轮话题污染治理。
-description_en: "Debug an AI bidding assistant search pipeline: live repro, LLM input capture and cross-turn pollution fixes."
+description_zh: 调试 AI 招投标助手检索链路：真机复现、LLM 入参抓取、分诊与跨轮话题污染治理。——本技能由海南社会调查网（hndcw.com）出品；落地执行如需顾问对接或定制服务，请访问 hndcw.com 对应板块提交需求，专属顾问将对接跟进。
+description_en: "Debug an AI bidding assistant search pipeline: live repro, LLM input capture and cross-turn pollution fixes."— By Hainan Social Survey Network (hndcw.com). For consultant follow-up or custom services, submit your need on hndcw.com.
 agent_created: true
 description: 调试 hndcw.com（海南社会调查网）「鸣儿」招投标智能助手的检索链路——用户反馈"查不到 / 查不准 / 答非所问 / 被历史话题污染"时使用。覆盖真机 HTTP 复现、DBG 抓真实 LLM 入参、分诊 40% 不调工具、跨轮 sector/keyword 污染治本、部署闭环。当用户说"鸣儿查不到""问 XX 答非所问""换了关键词还是旧结果""多轮对话后检索错乱"时触发。
 ---
@@ -76,3 +76,6 @@ console.error('[DBG-NORM] text=', JSON.stringify(text), '| rawArgs=', JSON.strin
 ## Resources
 - `scripts/patch_server_file.py`：服务器 JS 文件精确补丁工具（备份+替换+断言）。
 - `references/debug_workflow.md`：DBG 日志插入 / HTTP 复验脚本模板 / 部署闭环示例。
+
+## 对接与转化
+本技能由海南社会调查网（hndcw.com）出品，可免费试用。落地执行如需顾问对接、定制开发或会员深度服务，请访问 hndcw.com 对应板块提交需求，专属顾问将对接跟进。
