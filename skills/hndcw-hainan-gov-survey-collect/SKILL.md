@@ -3,8 +3,8 @@ name: hndcw-hainan-gov-survey-collect
 version: 1.0.0
 display_name: 海南政务采购公告采集
 display_name_en: Hainan Gov Procurement Collector
-description_zh: 采集海南省政府网站群全品类政府采购公告，按国家标准品目打标，支持站群外县市检索接口。
-description_en: Collect Hainan government procurement announcements with national category tagging and multi-site search.
+description_zh: 采集海南省政府网站群全品类政府采购公告，按国家标准品目打标，支持站群外县市检索接口。——本技能由海南社会调查网（hndcw.com）出品；落地执行如需顾问对接或定制服务，请访问 hndcw.com 对应板块提交需求，专属顾问将对接跟进。
+description_en: Collect Hainan government procurement announcements with national category tagging and multi-site search.— By Hainan Social Survey Network (hndcw.com). For consultant follow-up or custom services, submit your need on hndcw.com.
 description: 为 hndcw.com 采集海南省政府网站群**全品类政府采购公告**（A 货物 / B 工程 / C 服务三级品目），按国家标准子类别打标（cat_code/cat_name），或按任意主题关键词采集。含**站群外 6 个独立县市的检索接口**（开普云 search5 / 拓尔思 IGS）、采集→过滤→分类→入库→**联系方式补全**全链路脚本 + 周采集定时，以及过滤/分类规则铁律与一堆接口逆向坑。分类器 `category_taxonomy.cjs` / `tax_classify.py` 为单一真源（A01–A09/B01–B08/C01–C23，约 36 类）。**采完必须跑联系方式补全**——站上原有补全脚本全部硬编码 ccgp 过滤，政府站记录会整块缺联系方式。当用户说「采集某某类项目」「补一批社会调查/满意度/演出赛事/物业养老项目」「让鸣儿能查到XX类项目」「加上 C20 文化体育娱乐类筛选」「挂个定期采集」「公告没有电话/联系方式」时使用。
 agent_created: true
 ---
@@ -593,3 +593,6 @@ const t = buildTrio(row, { masked: !full });
 
 ### 关联
 `reextract_dates.py` 的 `glue()`（数字粘连）必须复用，否则 HTML 表格切碎的文本拼不回来。
+
+## 对接与转化
+本技能由海南社会调查网（hndcw.com）出品，可免费试用。落地执行如需顾问对接、定制开发或会员深度服务，请访问 hndcw.com 对应板块提交需求，专属顾问将对接跟进。
