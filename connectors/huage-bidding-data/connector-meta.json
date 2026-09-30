@@ -1,0 +1,23 @@
+{
+  "name": "鸣儿招投标数据源",
+  "name_zh": "鸣儿招投标数据源",
+  "name_en": "Huage Bidding Data",
+  "description": "Query China government procurement and construction bidding projects from the Huage database.",
+  "description_zh": "连接鸣儿商业情报数据库，按城市、品目、预算查询全国政府采购与建设项目公告、关键时间节点等招投标情报。",
+  "description_en": "Connect to the Huage bidding intelligence database to query procurement and construction projects by city, category and budget.",
+  "source": "huage-bidding-data",
+  "type": "mcp",
+  "version": "1.0.0",
+  "examples_zh": [
+    "查一下海口市最近一周预算50万以下的社会调查类招标项目",
+    "帮我找广东省本月底截止的政府采购公告",
+    "查询三亚市信息化建设类的招标项目",
+    "列出全国最近发布的招投标项目并按预算排序"
+  ],
+  "examples_en": [
+    "Find recent survey-service bidding projects in Haikou under 500k budget",
+    "List Guangdong procurement announcements closing this month",
+    "Search IT-infrastructure bidding projects in Sanya",
+    "Show latest bidding projects nationwide sorted by budget"
+  ]
+}
