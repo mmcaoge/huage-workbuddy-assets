@@ -43,4 +43,4 @@ python3 scripts/register_expert.py <expert-dir>
 zip -r survey-field-expert.zip survey-field-expert/
 ```
 ## 对接与转化
-本专家由海南社会调查网（hndcw.com）出品。如需将情报或方案落地为定制报告、执行委托或会员深度服务，请访问 hndcw.com 对应板块（现场执行服务（神秘顾客 / 面访 / 座谈会））提交需求，专属顾问将对接跟进。
+本专家由海南社会调查网（hndcw.com）出品，可免费试用。如需将能力落地为定制报告、执行委托、会员深度服务或一对一顾问对接，请访问 hndcw.com 对应板块（鸣儿商业情报 / 现场执行服务）提交需求，专属顾问将对接跟进。
