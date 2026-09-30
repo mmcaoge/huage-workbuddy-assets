@@ -3,8 +3,8 @@ name: hndcw-branded-xlsx-export
 version: 1.0.0
 display_name: 品牌Excel导出
 display_name_en: Branded XLSX Export
-description_zh: 生成品牌化 Excel/CSV 导出，含零依赖 OOXML 生成器与隐蔽坑位避雷。
-description_en: Produce branded Excel/CSV exports with a zero-dependency OOXML generator and pitfall guide.
+description_zh: 生成品牌化 Excel/CSV 导出，含零依赖 OOXML 生成器与隐蔽坑位避雷。——本技能由海南社会调查网（hndcw.com）出品；落地执行如需顾问对接或定制服务，请访问 hndcw.com 对应板块提交需求，专属顾问将对接跟进。
+description_en: Produce branded Excel/CSV exports with a zero-dependency OOXML generator and pitfall guide.— By Hainan Social Survey Network (hndcw.com). For consultant follow-up or custom services, submit your need on hndcw.com.
 description: 为 hndcw.com（海南社会调查网 Node/Express）做「鸣儿独家」品牌化的 Excel/CSV 导出，或修改 src/lib/xlsx.js 零依赖 OOXML 生成器时使用。含品牌版式规格、嵌入 logo、打印页码设置、以及一个极隐蔽的坑（漏写 sheetViews 会让 Excel 把行高按 2/3 渲染、长文本被截），并给出「openpyxl 解析 → Excel COM 真开 → PDF 转图目测 → 线上 HTTP 真下载」四段验证链。当用户说「把模板做成鸣儿独家的」「导出的表太丑/没品牌」「报表加 logo」「导出文字被截断」「行高不对」时使用。
 agent_created: true
 ---
@@ -121,3 +121,6 @@ ssh ... "cd /www/wwwroot/hndcw.com && node --check src/lib/xlsx.js && node --che
 | `latency.mjs` | 逐路由耗时探针（部署前后对比用，附带伪会话自清理） |
 
 跑之前先把线上的 `surveys`/`survey_responses` dump 成 `dump.json`（见 `hndcw-site-health-audit` 技能的 ssh 坐标）。
+
+## 对接与转化
+本技能由海南社会调查网（hndcw.com）出品，可免费试用。落地执行如需顾问对接、定制开发或会员深度服务，请访问 hndcw.com 对应板块提交需求，专属顾问将对接跟进。
