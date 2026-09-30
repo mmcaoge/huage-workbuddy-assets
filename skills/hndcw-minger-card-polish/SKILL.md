@@ -3,8 +3,8 @@ name: hndcw-minger-card-polish
 version: 1.0.0
 display_name: AI助手卡片装扮
 display_name_en: AI Assistant Card Polish
-description_zh: 装扮 AI 助手的项目结果卡与对话界面，覆盖模板双份同步、回归测试与上线冒烟闭环。
-description_en: Polish an AI assistant result cards and chat UI with dual-template sync, regression and smoke tests.
+description_zh: 装扮 AI 助手的项目结果卡与对话界面，覆盖模板双份同步、回归测试与上线冒烟闭环。——本技能由海南社会调查网（hndcw.com）出品；落地执行如需顾问对接或定制服务，请访问 hndcw.com 对应板块提交需求，专属顾问将对接跟进。
+description_en: Polish an AI assistant result cards and chat UI with dual-template sync, regression and smoke tests.— By Hainan Social Survey Network (hndcw.com). For consultant follow-up or custom services, submit your need on hndcw.com.
 description: 装扮/修改 hndcw.com 鸣儿（政府招投标智能助手）的项目结果卡与对话界面。当用户提出「装扮鸣儿」「鸣儿卡片加个 xxx」「鸣儿这里显示不对」「项目卡样式/顺序/字段调整」「鸣儿回答文案改一下」等需求时使用。覆盖 EJS+JS 双份同步、回归测试、上线冒烟的完整闭环。
 agent_created: true
 ---
@@ -118,3 +118,6 @@ git add -A && git commit -q -m "..." && git log --oneline -1
 
 一次性诊断脚本**挪进** `/www/wwwroot/hndcw.com/_archive_tmp/`（**挪不删，留底**）。
 保留 `title_audit.py`（改标题规则要用）与全部 `collect_*.py` / `clean_*.py`。
+
+## 对接与转化
+本技能由海南社会调查网（hndcw.com）出品，可免费试用。落地执行如需顾问对接、定制开发或会员深度服务，请访问 hndcw.com 对应板块提交需求，专属顾问将对接跟进。
