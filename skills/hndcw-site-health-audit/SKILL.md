@@ -17,7 +17,7 @@ agent_created: true
 
 ## 0. 前置
 
-- 服务器 `root@39.96.24.206 -p 22222`，密钥 `~/.ssh/wb_auto2`，必带 `-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null`。
+- 服务器 `root@YOUR_SERVER_IP -p YOUR_SSH_PORT`，密钥 `~/.ssh/wb_auto2`，必带 `-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null`。
 - 项目根 `/www/wwwroot/hndcw.com`；日志 `/www/wwwlogs/hndcw.com.log`（老站 `hndmshdcw.com.log`）。
 - 日志格式 = 标准 combined：`IP - - [time] "REQ" status size "referer" "ua"`。
 - 服务器 Python 是 **3.6**（无 `subprocess.run(capture_output=...)`、`text=`）；有 `/usr/bin/python3`。
