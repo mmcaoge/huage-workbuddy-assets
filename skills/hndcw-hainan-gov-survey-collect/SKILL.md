@@ -17,7 +17,7 @@ agent_created: true
 - 需要按**任意主题关键词**（不限于社会调查）抓海南各政府网站的公告
 
 ## 项目坐标
-- 服务器：`ssh -i ~/.ssh/wb_auto2 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -p 22222 root@39.96.24.206`
+- 服务器：`ssh -i ~/.ssh/wb_auto2 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -p YOUR_SSH_PORT root@YOUR_SERVER_IP`
 - 站点根：`/www/wwwroot/hndcw.com/`；生产库 `data/hndcw.db`；脚本落 `tools/`
 - **scp 必须大写 `-P`**；本地 Windows 源路径加 `MSYS_NO_PATHCONV=1`
 
