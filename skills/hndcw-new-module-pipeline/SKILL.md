@@ -20,7 +20,7 @@ agent_created: true
 - **数据库**：SQLite；`db.js` 在 **`db/db.js`**（不是 `src/db/db.js`）
 - **本地 Node**：`C:/Users/琼崖纵队/.workbuddy/binaries/node/versions/22.22.2/node.exe`
 - **本地服务端口**：`PORT=3100`
-- **服务器**：`39.96.24.206`，SSH 端口 `22222`，root，密钥 `~/.ssh/wb_auto2`，部署目录 `/www/wwwroot/hndcw.com`
+- **服务器**：`YOUR_SERVER_IP`，SSH 端口 `YOUR_SSH_PORT`，root，密钥 `~/.ssh/wb_auto2`，部署目录 `/www/wwwroot/hndcw.com`
 - **PM2 进程名**：`hndcw`
 - **部署命令链**：`tar -xzf /tmp/<pkg>.tar.gz && node db/migrate.js && node _diag/seed_<x>.mjs && pm2 restart hndcw`
 - **品牌铁律**：全站显示「海南社会调查网」，不出现「铎鸣」字样
@@ -68,8 +68,8 @@ PORT=3100 C:/Users/琼崖纵队/.workbuddy/binaries/node/versions/22.22.2/node.e
 cd /d/WorkBuddy-Projects/2026-06-07-20-59-29/hndcw
 rm -f ../hndcw_<module>.tar.gz
 tar -czf ../hndcw_<module>.tar.gz src views public db _diag package.json package-lock.json
-scp -P 22222 -i ~/.ssh/wb_auto2 -o StrictHostKeyChecking=no ../hndcw_<module>.tar.gz root@39.96.24.206:/tmp/
-ssh -p 22222 -i ~/.ssh/wb_auto2 -o StrictHostKeyChecking=no root@39.96.24.206 "cd /www/wwwroot/hndcw.com && tar -xzf /tmp/hndcw_<module>.tar.gz && node db/migrate.js && node _diag/seed_<module>.mjs && pm2 restart hndcw"
+scp -P YOUR_SSH_PORT -i ~/.ssh/wb_auto2 -o StrictHostKeyChecking=no ../hndcw_<module>.tar.gz root@YOUR_SERVER_IP:/tmp/
+ssh -p YOUR_SSH_PORT -i ~/.ssh/wb_auto2 -o StrictHostKeyChecking=no root@YOUR_SERVER_IP "cd /www/wwwroot/hndcw.com && tar -xzf /tmp/hndcw_<module>.tar.gz && node db/migrate.js && node _diag/seed_<module>.mjs && pm2 restart hndcw"
 ```
 部署后立刻服务器本地冒烟：
 ```bash
@@ -89,7 +89,7 @@ ssh ... "curl -s -o /dev/null -w '%{http_code}' http://127.0.0.1:3000/<new-path>
 - **服务器解压不生效**：tar 解压后务必 `ls -la` 检查关键文件时间戳，必要时重新 `tar -xzf`。
 - **端口占用**：本地 3100 被旧进程占用时，用 PowerShell `Stop-Process` 杀进程，Git Bash `taskkill` 可能失败。
 - **CSS 网格**：社区 hub 的 `.cm-hub-cats` 已改为 `repeat(auto-fit, minmax(150px,1fr))`，增加模块会自动换行。
-- **scp 必须大写 `-P`**：`scp -p 22222` 会把端口当本地文件（`stat local "22222"` 报错）；ssh 用的小写 `-p` 不能混用。反向地，Windows 本地源路径要配 `MSYS_NO_PATHCONV=1` + `D:/...` 形式，否则 `/d/...` 被 Windows scp 拒绝。两类命令分开执行。
+- **scp 必须大写 `-P`**：`scp -p YOUR_SSH_PORT` 会把端口当本地文件（`stat local "YOUR_SSH_PORT"` 报错）；ssh 用的小写 `-p` 不能混用。反向地，Windows 本地源路径要配 `MSYS_NO_PATHCONV=1` + `D:/...` 形式，否则 `/d/...` 被 Windows scp 拒绝。两类命令分开执行。
 - **同一文件严禁并行发多个 Edit**：工具可能返回 success 但内容被静默回退（曾一次发 7 个 Edit，3 处丢失，直接导致线上 `is not defined` 500）。同一文件一律串行单条 Edit，改完用 `grep -c` 逐项核对再上传。
 - **EJS `<%= %>` 会对已转义字符串二次转义**：把 JSON 塞进 HTML 属性必须用 `<%- %>` 输出，否则引号变成 `&amp;quot;`，前端 `JSON.parse` 必然失败。
 - **EJS 模板引用未定义变量 = 运行时 500**（编译期查不出）；新增模板变量必须确认对应 route 的 `render` 已传参。
