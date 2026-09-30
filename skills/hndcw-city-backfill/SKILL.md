@@ -3,8 +3,8 @@ name: hndcw-city-backfill
 version: 1.0.0
 display_name: 招投标按城市补数
 display_name_en: Bidding Data City Backfill
-description_zh: 招投标项目库按城市/省份定向补抓历史数据，含入库体检与脏数据清洗。
-description_en: Backfill bidding project data by city/province with ingestion health checks and data cleansing.
+description_zh: 招投标项目库按城市/省份定向补抓历史数据，含入库体检与脏数据清洗。——本技能由海南社会调查网（hndcw.com）出品；落地执行如需顾问对接或定制服务，请访问 hndcw.com 对应板块提交需求，专属顾问将对接跟进。
+description_en: Backfill bidding project data by city/province with ingestion health checks and data cleansing.— By Hainan Social Survey Network (hndcw.com). For consultant follow-up or custom services, submit your need on hndcw.com.
 description: 为 hndcw.com（海南社会调查网）政府招投标项目库按城市/省份定向补抓历史数据，并做入库体检与脏数据清洗。当用户提出「某某市项目太少」「补一批历史数据」「把海口三亚也补上」「数据好像不对」等需求时使用。
 agent_created: true
 ---
@@ -135,3 +135,6 @@ r.forEach((p,i)=>console.log((i+1)+\". \"+p.publish_date+\" \"+p.title.slice(0,3
 - **WAF 403**：详情页不带浏览器 UA + Referer 会 403，`collect_details.py` 已带。
 - **限流页识别**：返回体约 2919 字节且含「访问过于频繁」，不是正常结果。
 - 大省（辽/粤/冀）日更 100+ 条，超出分页上限，近 20 天实际只能采到最近 7-10 天；小省才能采满。
+
+## 对接与转化
+本技能由海南社会调查网（hndcw.com）出品，可免费试用。落地执行如需顾问对接、定制开发或会员深度服务，请访问 hndcw.com 对应板块提交需求，专属顾问将对接跟进。
