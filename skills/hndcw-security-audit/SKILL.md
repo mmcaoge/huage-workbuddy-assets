@@ -17,11 +17,11 @@ agent_created: true
 
 ## 0. 前置与红线
 
-- 服务器 `root@39.96.24.206 -p 22222`，密钥 `~/.ssh/wb_auto2`，必带 `-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null`。
+- 服务器 `root@YOUR_SERVER_IP -p YOUR_SSH_PORT`，密钥 `~/.ssh/wb_auto2`，必带 `-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null`。
 - **执行环境红线**（同 `hndcw-site-health-audit`）：PowerShell 工具里禁止 `bash x.sh`（报 "Spawning a non-PowerShell shell"）、禁止出现 `%{http_code}`（报 "cmd.exe %VAR% syntax"）⇒ **固定做法：本地写脚本 → 转 LF → scp → `chmod +x` → 直接 `/tmp/x.sh` 执行**。
 - 本地转 LF：`$c=[IO.File]::ReadAllText($p) -replace "`r`n","`n"; [IO.File]::WriteAllText($p,$c,(New-Object Text.UTF8Encoding($false)))`
 - ⚠️ **只探测自己的资产。**
-- ⚠️ **探测请求会进我们自己的 access log** —— 事后做"是否被人访问过"的判定时，必须排除 `39.96.24.206`（本机）和 UA `curl/7.61.1`。
+- ⚠️ **探测请求会进我们自己的 access log** —— 事后做"是否被人访问过"的判定时，必须排除 `YOUR_SERVER_IP`（本机）和 UA `curl/7.61.1`。
 - ⚠️ **输出里绝不打印密钥明文**：管道里加 `sed -E 's/[a-f0-9]{20,}/[REDACTED]/g'`。
 
 ---
