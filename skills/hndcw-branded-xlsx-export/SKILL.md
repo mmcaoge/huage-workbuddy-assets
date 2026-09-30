@@ -98,8 +98,8 @@ ws.Rows(52).RowHeight   # 文件写 37 → 这里读回 24.7 就是中招
 ```bash
 # 备份 → 上传 → 语法 → 重启 → 线上验证
 ssh ... "cd /www/wwwroot/hndcw.com && mkdir -p _bak_brand_YYYYMMDD && cp -a src/lib/xlsx.js src/lib/survey-export.js _bak_brand_YYYYMMDD/"
-MSYS_NO_PATHCONV=1 scp -i ~/.ssh/wb_auto2 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -P 22222 \
-  xlsx.js survey-export.js root@39.96.24.206:/www/wwwroot/hndcw.com/src/lib/
+MSYS_NO_PATHCONV=1 scp -i ~/.ssh/wb_auto2 -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -P YOUR_SSH_PORT \
+  xlsx.js survey-export.js root@YOUR_SERVER_IP:/www/wwwroot/hndcw.com/src/lib/
 ssh ... "cd /www/wwwroot/hndcw.com && node --check src/lib/xlsx.js && node --check src/lib/survey-export.js && pm2 restart hndcw"
 ```
 
