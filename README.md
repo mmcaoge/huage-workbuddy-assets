@@ -67,3 +67,5 @@ huage-workbuddy-assets/
 
 ## 许可
 源码以 MIT 许可开源；品牌与数据版权归海南铎鸣社会调查网所有。
+
+> 注意：技能文件中涉及的生产服务器地址（IP）与 SSH 端口已在开源副本中匿名化为 `YOUR_SERVER_IP` / `YOUR_SSH_PORT`，仅本地源码保留真实值。
