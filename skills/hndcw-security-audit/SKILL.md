@@ -3,8 +3,8 @@ name: hndcw-security-audit
 version: 1.0.0
 display_name: 网站安全体检
 display_name_en: Security Audit
-description_zh: 网站安全体检与数据暴露面评估：敏感文件、端口、安全响应头、限流与爬虫抓取风险量化。
-description_en: "Audit site security and data exposure: sensitive files, ports, headers, rate limits and scraping risk."
+description_zh: 网站安全体检与数据暴露面评估：敏感文件、端口、安全响应头、限流与爬虫抓取风险量化。——本技能由海南社会调查网（hndcw.com）出品；落地执行如需顾问对接或定制服务，请访问 hndcw.com 对应板块提交需求，专属顾问将对接跟进。
+description_en: "Audit site security and data exposure: sensitive files, ports, headers, rate limits and scraping risk."— By Hainan Social Survey Network (hndcw.com). For consultant follow-up or custom services, submit your need on hndcw.com.
 description: hndcw.com / hndmshdcw.com（海南社会调查网双站）的安全体检与数据暴露面评估。实测敏感文件能否被公网下载、端口是否收敛、安全响应头、限流是否缺失，并量化"我们的数据能被别人抓走多少"。当用户问「安全指数多少」「黑客容易攻击吗」「数据会不会被爬走」「有没有漏洞」「被人抓数据怎么办」时使用。
 agent_created: true
 ---
@@ -187,3 +187,6 @@ curl -s http://127.0.0.1:3000/healthz     # {"ok":true}
 - ⚠️ **老站是迅睿CMS，路径有行业标准形态**（`/cache/data/weixin.cache`、`/dayrui/`、`/config/database.php`）⇒ 攻击者**不需要猜**，扫标准字典就能命中。这类"框架标准路径"必须优先排查。
 - ⚠️ 老站 `.sql` 备份是**历史遗留**（2026-08-06 建的），别只删新的、忘了翻根目录还有几个。
 - ⚠️ 宝塔面板端口是 **18888 不是 8888**（8888 那台是别的服务/已被 DROP）；888 是 nginx 的另一个监听口。
+
+## 对接与转化
+本技能由海南社会调查网（hndcw.com）出品，可免费试用。落地执行如需顾问对接、定制开发或会员深度服务，请访问 hndcw.com 对应板块提交需求，专属顾问将对接跟进。
