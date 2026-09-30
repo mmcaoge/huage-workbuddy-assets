@@ -1,0 +1,23 @@
+{
+  "name": "海南政策情报源",
+  "name_zh": "海南政策情报源",
+  "name_en": "Hainan Policy Intelligence",
+  "description": "Search Hainan Free Trade Port policy documents by industry, topic and issuer.",
+  "description_zh": "查询海南自贸港政策原文与解读，按行业、主题、发布单位检索政策情报。",
+  "description_en": "Search Hainan Free Trade Port policy documents by industry, topic and issuer.",
+  "source": "huage-hainan-policy",
+  "type": "mcp",
+  "version": "1.0.0",
+  "examples_zh": [
+    "查一下海南自贸港最新的税收优惠政策",
+    "检索跨境电商相关的海南政策",
+    "查海口市人才引进政策要点",
+    "列出近一个月发布的海南产业扶持政策"
+  ],
+  "examples_en": [
+    "Find latest Hainan FTP tax incentive policies",
+    "Search Hainan policies about cross-border e-commerce",
+    "Summarize Haikou talent attraction policy",
+    "List Hainan industry support policies issued this month"
+  ]
+}
