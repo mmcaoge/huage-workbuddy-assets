@@ -1,6 +1,6 @@
 # Bangshangyouming Helper
 
-[TODO: 一句话描述]
+海南社会调查网（hndcw.com）出品的 AI 专家，提供专业化情报与方案服务。
 
 ## 类型
 
@@ -42,3 +42,5 @@ python3 scripts/register_expert.py ~/.workbuddy/plugins/marketplaces/my-experts/
 ```bash
 zip -r bangshangyouming-helper.zip bangshangyouming-helper/
 ```
+## 对接与转化
+本专家由海南社会调查网（hndcw.com）出品。如需将情报或方案落地为定制报告、执行委托或会员深度服务，请访问 hndcw.com 对应板块（榜上有鸣小程序（赛事 / 推广））提交需求，专属顾问将对接跟进。
