@@ -21,7 +21,7 @@ description: 调试 hndcw.com（海南社会调查网）「鸣儿」招投标智
 - 活跃路由 = `src/routes/minger.js`；`src/minger.js` 是死文件、无人导入，**勿改**。
 - 链路：`/minger/api/ask` → `ask()`（src/agent/index.js）→ `detectIntent()`（src/agent/intent.js，本地确定性分诊）→ `buildMessages()`（读最近 6 轮历史）→ `chatWithTools(ROUTER_TOOLS)`（豆包 function calling）→ 命中 `search_projects` → `normalizeFilters(args,text)` → `runProjectSearch`（内含 `relaxedStrict` 降级链）→ 结果回给豆包写总结。
 - 不调工具 → `answerModel()`（通用知识，**会编"查不到"并扣 15 积分**）。
-- DB 写用 Node22 `node:sqlite`；部署服务器 `39.96.24.206:22222`，私钥 `D:/.ssh_deploy/wb_auto2`（用时从 `C:/Users/琼崖纵队/.ssh/wb_auto2` 复制，用完即删），scp 大写 `-P`、ssh 小写 `-p`。
+- DB 写用 Node22 `node:sqlite`；部署服务器 `YOUR_SERVER_IP:YOUR_SSH_PORT`，私钥 `D:/.ssh_deploy/wb_auto2`（用时从 `C:/Users/琼崖纵队/.ssh/wb_auto2` 复制，用完即删），scp 大写 `-P`、ssh 小写 `-p`。
 
 ## 调试闭环（务必按序，先复现再改）
 
@@ -56,7 +56,7 @@ console.error('[DBG-NORM] text=', JSON.stringify(text), '| rawArgs=', JSON.strin
 
 ### 4. 改文件与部署
 - ⚠️ **Edit 工具大块改动会部分回滚** → 用 Python io 读写（见 `scripts/patch_server_file.py`）做精确字符串替换 + 断言校验。
-- 改完先在服务器 `cp` 备份 `/tmp/bakN_index_*.js`，再覆盖 `src/agent/index.js`（scp `-P 22222` 逐文件精确绝对路径到 `/www/wwwroot/hndcw.com/`）。
+- 改完先在服务器 `cp` 备份 `/tmp/bakN_index_*.js`，再覆盖 `src/agent/index.js`（scp `-P YOUR_SSH_PORT` 逐文件精确绝对路径到 `/www/wwwroot/hndcw.com/`）。
 - `node --check src/agent/index.js` 语法校验 → `pm2 restart hndcw` → `pm2 info hndcw` 确认 online / unstable restarts 0。
 - 移除 DBG 行后**必须再跑一次 HTTP 两轮复验**确认修复（见 references/debug_workflow.md）。
 
