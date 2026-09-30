@@ -1,0 +1,51 @@
+# [P1-c 限流区域 2026-09-14] 在 http 上下文定义，供各 vhost 的 limit_req 使用
+# minger_ask: 鸣儿 AI 问答，成本敏感，单 IP 1 请求/秒（突发 5）
+# projects_list: 项目库数据出口，单 IP 2 请求/秒（突发 10），拖慢批量抓取
+# owners_search: [P0-2026-09-17] 采购人/代理机构画像查询。该类查询要对 16.6 万行 projects
+#   做全表 LIKE + 13 层 CASE 分组，单次秒级且为同步 CPU（阻塞 Node 单线程）；曾被
+#   meta-externalagent 高频扫到整站 20s+ 无响应。单 IP 2 请求/秒（突发 5）拖慢批量抓取。
+limit_req_zone $binary_remote_addr zone=minger_ask:10m rate=1r/s;
+limit_req_zone $binary_remote_addr zone=projects_list:10m rate=2r/s;
+limit_req_zone $binary_remote_addr zone=owners_search:10m rate=2r/s;
+
+# [P0 事故修复 2026-09-17] /owners 画像查询页反抓取开关
+# 背景：/owners?name=… 每个公司名一个 URL（空间无限），且每次要对 16.6 万行 projects 跑
+#   全表 LIKE + 13 层 CASE 分组（秒级同步 CPU，阻塞 Node 单线程）。meta-externalagent
+#   高频扫该类 URL 曾把 Node 打到 95% CPU、整站 20-30s 无响应。
+# 判定：「是 AI/SEO 爬虫」且「带 name=/q= 查询串」 → 1（命中则 vhost 里直接 403）。
+#   不用嵌套 if（nginx 的 if 不允许出现在 if 里），改用 map 组合两个变量。
+map $http_user_agent $owners_isbot {
+    default 0;
+    "~*(meta-externalagent|Bytespider|PetalBot|Amazonbot|CCBot|ClaudeBot|Claude-Web|GPTBot|OAI-SearchBot|ChatGPT-User|PerplexityBot|Applebot|ImagesiftBot|SemrushBot|AhrefsBot|MJ12bot|DotBot|Barkrowler|serpstatbot|DataForSeoBot)" 1;
+}
+map $args $owners_hasq {
+    default 0;
+    "~(^|&)(name|q)=" 1;
+}
+map "$owners_isbot$owners_hasq" $owners_block {
+    default 0;
+    "11" 1;
+}
+
+# [档3 2026-09-17] 热点公开页「游客微缓存」
+# 为什么需要：Node 用的是 node:sqlite **同步 API**，一次慢查询会冻住整个事件循环
+#   （实测首页 2.7s 全表分组 ⇒ 全站排队 21s）。档1/档2 已把查询本身降到毫秒级，
+#   这一层是「把爬虫和重复访问挡在 Node 之外」的最后一道，让 Node 只服务真正需要动态计算的请求。
+# 安全边界（三条都不可省）：
+#   ① 只缓存 200：403/429/500 一律不进缓存
+#   ② 带登录 cookie 的请求 bypass 且**不写入**缓存（vhost 里 proxy_cache_bypass + proxy_no_cache）
+#      —— 首页与榜单页对登录用户含会员配额/昵称等个人化内容，绝不能串号
+#   ③ 不 ignore Set-Cookie：nginx 默认跳过含 Set-Cookie 的响应，保持该默认行为，
+#      避免把别人 session 发给访客（本站 saveUninitialized:false，
+#      游客本就不带 Set-Cookie，所以不影响缓存命中率）
+proxy_cache_path /www/server/nginx/cache_micro levels=1:2 keys_zone=micro_cache:16m
+                 max_size=256m inactive=10m use_temp_path=off;
+
+# [档3] 是否持有登录会话 —— 微缓存的 bypass 判据
+# 用 $http_cookie 原文匹配而非 $cookie_connect_sid，避开 nginx 对 cookie 名做
+# 非字母数字字符转换（connect.sid → connect_sid）带来的不确定性；两种 cookie 名都兜住。
+# 命中 ⇒ 1 ⇒ 该请求绕过缓存读，且响应不写入缓存（杜绝个人化内容串号）。
+map $http_cookie $hndcw_has_session {
+    default 0;
+    "~*(connect\.sid|hndcw_sid)=" 1;
+}
