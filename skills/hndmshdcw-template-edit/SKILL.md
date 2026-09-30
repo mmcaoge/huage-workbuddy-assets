@@ -19,7 +19,7 @@ agent_created: true
 - 改完要证明"真的好了"（不能只靠肉眼）
 
 ## 环境与文件坐标
-- SSH：`ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i ~/.ssh/wb_auto2 -p 22222 root@39.96.24.206`
+- SSH：`ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i ~/.ssh/wb_auto2 -p YOUR_SSH_PORT root@YOUR_SERVER_IP`
 - scp 同参数（**大写 `-P`**）；PowerShell 工具里跑（本机 Bash 的 `PATH` 常坏）。
 - 站根：`/www/wwwroot/hndmshdcw.com/`
 - **PC 模板**：`template/pc/my/`（`{template "header.html"}` 机制）
