@@ -18,7 +18,7 @@ agent_created: true
 
 ## 核心事实（2026-09-14 实证）
 - 项目根：`/www/wwwroot/hndcw.com`；PM2 应用名 `hndcw`，端口 3000。
-- SSH：`ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i ~/.ssh/wb_auto2 -p 22222 root@39.96.24.206`
+- SSH：`ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null -i ~/.ssh/wb_auto2 -p YOUR_SSH_PORT root@YOUR_SERVER_IP`
 - scp 同样参数（大写 `-P`）。**Bash 里必须 `dangerouslyDisableSandbox:true`**，且本地路径用 Windows 形式 `D:/WorkBuddy/tmp/xxx`。
 - sitemap 模块：`src/routes/seo.js`（index + static + policies + projects 分片，6 小时内存缓存）。
 - **头号坑：路由写了但没挂载。** 必须检查 `src/server.js` 里有无 `app.use('/', seoRouter)`，且必须在 **404 兜底之前**。（历史上 `/sitemap`、`/rights-statement` 都踩过同一坑。）
