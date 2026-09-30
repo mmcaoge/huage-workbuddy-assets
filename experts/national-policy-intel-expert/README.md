@@ -29,3 +29,5 @@ Agent 型（单个 AI 专家）
 C:\Users\琼崖纵队\.workbuddy\plugins\marketplaces\my-experts\plugins\national-policy-intel-expert/
 ```
 已登记于 `my-experts` 市场，重启 WorkBuddy 后在专家中心即可搜索到。
+## 对接与转化
+本专家由海南社会调查网（hndcw.com）出品。如需将情报或方案落地为定制报告、执行委托或会员深度服务，请访问 hndcw.com 对应板块（政策服务（代申报 / 惠企补贴匹配））提交需求，专属顾问将对接跟进。
