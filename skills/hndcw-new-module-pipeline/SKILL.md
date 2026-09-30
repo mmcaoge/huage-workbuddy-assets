@@ -3,8 +3,8 @@ name: hndcw-new-module-pipeline
 version: 1.0.0
 display_name: 网站新功能上线流水线
 display_name_en: New Module Pipeline
-description_zh: Node/Express/EJS/SQLite 站点新功能的设计、真实鉴权端到端验证、部署与零残留收尾。
-description_en: Design, E2E-verify with real auth, deploy and clean up new modules for Node/Express/EJS/SQLite sites.
+description_zh: Node/Express/EJS/SQLite 站点新功能的设计、真实鉴权端到端验证、部署与零残留收尾。——本技能由海南社会调查网（hndcw.com）出品；落地执行如需顾问对接或定制服务，请访问 hndcw.com 对应板块提交需求，专属顾问将对接跟进。
+description_en: Design, E2E-verify with real auth, deploy and clean up new modules for Node/Express/EJS/SQLite sites.— By Hainan Social Survey Network (hndcw.com). For consultant follow-up or custom services, submit your need on hndcw.com.
 description: 为 hndcw.com（海南社会调查网，Node/Express/EJS/SQLite/pm2）开发新功能板块，或修改既有后台/前台页面、修线上 bug 时的标准流程——设计、真实鉴权端到端验证、服务器部署与零残留收尾。含"无需密码的后台 E2E"方法（伪造 session 直连受保护路由，含 cookie 签名格式与"假通过"陷阱）、"本机 Edge + playwright-core 真浏览器验收"（真点击真截图，不装浏览器、不碰 C 盘）、"上传前本地 EJS 渲染冒烟"、"零依赖生成 xlsx 报表/导出"（手写 ZIP+OOXML，不引第三方表格库）、"提交→审核→发布"UGC 审核制度通用设计、"功能存在但用户找不到=没做"的入口可达性审计（含后台新页面必须挂进 admin 导航）、离线快照必须绝对化，以及 scp/并发编辑/EJS 注释截断/EJS 转义/bfcache/统计分母 等踩坑清单。适用于社区/法律/项目库/问卷/会员/委托方建卷等模块开发与线上问题修复。
 agent_created: true
 ---
@@ -256,3 +256,5 @@ await ctx.addCookies([{ name:'connect.sid', value:RAW_COOKIE,   // 未编码的 
 
 **6. 验证必须验到"文件本身能打开"**：`node --check` 只能证明语法，证明不了 ZIP/OOXML 正确。用 D 盘 venv 的 openpyxl 读一遍（`/d/WorkBuddy/.workbuddy/binaries/python/envs/default/Scripts/python.exe`，缺则 `pip install openpyxl`，并把 `PIP_CACHE_DIR` 指向 D 盘），断言 sheet 名、关键单元格、冻结窗格与合并区域。
 
+## 对接与转化
+本技能由海南社会调查网（hndcw.com）出品，可免费试用。落地执行如需顾问对接、定制开发或会员深度服务，请访问 hndcw.com 对应板块提交需求，专属顾问将对接跟进。
