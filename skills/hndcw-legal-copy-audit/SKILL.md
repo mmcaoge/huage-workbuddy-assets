@@ -3,8 +3,8 @@ name: hndcw-legal-copy-audit
 version: 1.0.0
 display_name: 法律文案一致性审计
 display_name_en: Legal Copy Audit
-description_zh: 审计对外法律/说明页文案与代码真实规则的一致性，含关键词清单与权威来源。
-description_en: Audit public legal/policy copy against real code rules with keyword checklists and authoritative sources.
+description_zh: 审计对外法律/说明页文案与代码真实规则的一致性，含关键词清单与权威来源。——本技能由海南社会调查网（hndcw.com）出品；落地执行如需顾问对接或定制服务，请访问 hndcw.com 对应板块提交需求，专属顾问将对接跟进。
+description_en: Audit public legal/policy copy against real code rules with keyword checklists and authoritative sources.— By Hainan Social Survey Network (hndcw.com). For consultant follow-up or custom services, submit your need on hndcw.com.
 description: 审计 hndcw.com 对外法律/说明页的文案是否与代码里的真实规则一致（尤其会员档位、价格、积分规则、推广制度）。当用户问「平台是不是 100% 完成了」「还有没有漏的」，或改动了会员/价格/制度后，用本流程查一遍。含关键词清单、权威来源、部署闭环。
 agent_created: true
 ---
@@ -60,3 +60,6 @@ grep -rn -E '优享用户|订阅用户|高级订阅|VIP|推广员|每日可查�
 ## 五、铁律
 
 **任何会员档位、价格、积分规则、推广制度的变更，必须同步**：`/rights-statement`、`/privacy`、`views/minger/recharge.ejs` 三处文案。改完用本流程收尾。
+
+## 对接与转化
+本技能由海南社会调查网（hndcw.com）出品，可免费试用。落地执行如需顾问对接、定制开发或会员深度服务，请访问 hndcw.com 对应板块提交需求，专属顾问将对接跟进。
