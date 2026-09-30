@@ -1,0 +1,167 @@
+server {
+    listen 80;
+    server_name hndcw.com www.hndcw.com;
+    return 301 https://hndcw.com$request_uri;
+}
+
+# www 子域：统一 301 到裸域（规范主域），避免被搜索引擎视为两个站点、分散权重
+server {
+    listen 443 ssl http2;
+    server_name www.hndcw.com;
+
+    ssl_certificate /etc/letsencrypt/live/hndcw.com/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/hndcw.com/privkey.pem;
+    ssl_protocols TLSv1.2 TLSv1.3;
+    ssl_ciphers ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384;
+    ssl_prefer_server_ciphers off;
+
+    return 301 https://hndcw.com$request_uri;
+}
+
+server {
+    listen 443 ssl http2;
+    server_name hndcw.com;
+    client_max_body_size 20m;
+
+    ssl_certificate /etc/letsencrypt/live/hndcw.com/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/hndcw.com/privkey.pem;
+    ssl_protocols TLSv1.2 TLSv1.3;
+    ssl_ciphers ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384;
+    ssl_prefer_server_ciphers off;
+
+    # [P1-b] 隐藏 Express 技术栈指纹，避免暴露后端实现
+    proxy_hide_header X-Powered-By;
+
+    # [P1-c] 鸣儿 AI 问答：成本敏感，单 IP 限速 1r/s（突发 5），超限返回 429
+    location = /minger/api/ask {
+        limit_req zone=minger_ask burst=5 nodelay;
+        limit_req_status 429;
+        proxy_pass http://127.0.0.1:3000;
+        proxy_http_version 1.1;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header X-Forwarded-Host $host;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+        proxy_read_timeout 60s;
+    }
+
+    # [P1-c / P2] 项目库数据出口：单 IP 限速 2r/s（突发 10），拖慢批量抓取
+    # 保留 sitemap 公开以保障 SEO 收录，限流只压真实数据接口，是公开与防爬的折中
+    location /projects {
+        limit_req zone=projects_list burst=10 nodelay;
+        limit_req_status 429;
+
+        # [档3 2026-09-17] 项目列表/地图/详情页游客微缓存：这些是爬虫与搜索引擎的主要落点，
+        # 缓存 60s 可把重复抓取完全挡在 Node 之外。登录用户 bypass 且不写入缓存。
+        proxy_cache micro_cache;
+        proxy_cache_key "$scheme$host$request_uri";
+        proxy_ignore_headers Cache-Control Expires;
+        proxy_cache_valid 200 60s;
+        proxy_cache_bypass $hndcw_has_session;
+        proxy_no_cache $hndcw_has_session;
+        proxy_cache_lock on;
+        proxy_cache_use_stale updating error timeout;
+        proxy_cache_background_update on;
+        add_header X-Cache $upstream_cache_status always;
+
+        proxy_pass http://127.0.0.1:3000;
+        proxy_http_version 1.1;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header X-Forwarded-Host $host;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+        proxy_read_timeout 60s;
+    }
+
+    # [P0 事故修复 2026-09-17] /owners 画像页是典型抓取陷阱：每个公司名一个 URL（空间无限、
+    # 内容重复），且每次请求都要对 16.6 万行 projects 跑全表 LIKE + 13 层 CASE 分组（秒级同步
+    # CPU，阻塞 Node 单线程）。2026-09-17 凌晨 meta-externalagent 高频扫 /owners?name=…，
+    # 把 Node 打到 95% CPU、整站 20-30s 无响应。三重对策：
+    #   ① 带查询串(?name=/?q=)的画像页对 AI/SEO 爬虫直接 403 —— 与 robots.txt 的
+    #      Disallow: /*?name= 双保险（robots 是君子协定，这里是硬闸）
+    #   ② 真人不受影响，只加单 IP 2r/s 限速（突发 5），拖慢脚本批量爬取
+    #   ③ 不带参数的 /owners 榜单页照常开放，搜索引擎可正常索引（保住 SEO 价值）
+    location ^~ /owners {
+        if ($owners_block) {
+            return 403;
+        }
+        limit_req zone=owners_search burst=5 nodelay;
+        limit_req_status 429;
+
+        # [档3 2026-09-17] 榜单/画像页游客微缓存：60s 内同一 URL 只回源一次。
+        # 登录用户（带 connect.sid）绕过缓存且不写入缓存，杜绝个人化内容串号。
+        # cache_key 含 query，避免 /owners?name=A 与 ?name=B 互相污染。
+        proxy_cache micro_cache;
+        proxy_cache_key "$scheme$host$request_uri";
+        proxy_ignore_headers Cache-Control Expires;   # 上游是 no-store，需显式忽略才能缓存
+        proxy_cache_valid 200 60s;
+        proxy_cache_bypass $hndcw_has_session;
+        proxy_no_cache $hndcw_has_session;
+        proxy_cache_lock on;                          # 防缓存穿透惊群：同 key 并发只放一个回源
+        proxy_cache_use_stale updating error timeout; # 过期先用旧内容顶上，后台再更新
+        proxy_cache_background_update on;
+        add_header X-Cache $upstream_cache_status always;
+
+        proxy_pass http://127.0.0.1:3000;
+        proxy_http_version 1.1;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header X-Forwarded-Host $host;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+        proxy_read_timeout 60s;
+    }
+
+    # [档3 2026-09-17] 首页游客微缓存。
+    # 首页原本每次访问跑 3 条全表 GROUP BY（实测合计 2669ms 同步 CPU，冻住整个 Node）。
+    # 档1 已把数据源换成预计算表，这里再做一层 60s 缓存，让突发流量/爬虫完全打不到 Node。
+    # 只缓存 200；登录用户由 $hndcw_has_session bypass 且不写入（首页对登录用户含
+    # 会员配额 tierName 等个人化内容）。
+    location = / {
+        proxy_cache micro_cache;
+        proxy_cache_key "$scheme$host$uri";
+        proxy_ignore_headers Cache-Control Expires;
+        proxy_cache_valid 200 60s;
+        proxy_cache_bypass $hndcw_has_session;
+        proxy_no_cache $hndcw_has_session;
+        proxy_cache_lock on;
+        proxy_cache_use_stale updating error timeout;
+        proxy_cache_background_update on;
+        add_header X-Cache $upstream_cache_status always;
+
+        proxy_pass http://127.0.0.1:3000;
+        proxy_http_version 1.1;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header X-Forwarded-Host $host;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+        proxy_read_timeout 60s;
+    }
+
+    location / {
+        proxy_pass http://127.0.0.1:3000;
+        proxy_http_version 1.1;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+        proxy_set_header X-Forwarded-Host $host;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+        proxy_read_timeout 60s;
+    }
+
+    access_log /www/wwwlogs/hndcw.com.log;
+    error_log /www/wwwlogs/hndcw.com.error.log;
+}
