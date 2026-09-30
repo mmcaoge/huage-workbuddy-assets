@@ -74,16 +74,16 @@ kill $(cat tmp/smoke.pid) 2>/dev/null ; grep -i "error" tmp/smoke.log | head -5
 逐文件精确 scp 到**服务器项目根目录**（`/www/wwwroot/hndcw.com/tmp/` **不存在**，传过去会 `dest open ... Failure`）：
 ```bash
 SSHOPT="-i ~/.ssh/wb_auto2 -o UserKnownHostsFile=C:/Users/琼崖纵队/.ssh/known_hosts -o StrictHostKeyChecking=accept-new"
-scp -P 22222 $SSHOPT views/minger/chat.ejs  root@39.96.24.206:/www/wwwroot/hndcw.com/views/minger/chat.ejs
-scp -P 22222 $SSHOPT public/css/minger.css   root@39.96.24.206:/www/wwwroot/hndcw.com/public/css/minger.css
-scp -P 22222 $SSHOPT src/agent/index.js      root@39.96.24.206:/www/wwwroot/hndcw.com/src/agent/index.js
-ssh -p 22222 $SSHOPT root@39.96.24.206 "pm2 restart hndcw"
+scp -P YOUR_SSH_PORT $SSHOPT views/minger/chat.ejs  root@YOUR_SERVER_IP:/www/wwwroot/hndcw.com/views/minger/chat.ejs
+scp -P YOUR_SSH_PORT $SSHOPT public/css/minger.css   root@YOUR_SERVER_IP:/www/wwwroot/hndcw.com/public/css/minger.css
+scp -P YOUR_SSH_PORT $SSHOPT src/agent/index.js      root@YOUR_SERVER_IP:/www/wwwroot/hndcw.com/src/agent/index.js
+ssh -p YOUR_SSH_PORT $SSHOPT root@YOUR_SERVER_IP "pm2 restart hndcw"
 ```
 切忌「多源→单目录」平铺 scp，会把 `src/routes/x.js` 落错成 `src/x.js` 致 502。
 
 ### 步骤 5：线上验证（服务器上 curl 也要 `--noproxy '*'`）
 ```bash
-ssh -p 22222 $SSHOPT root@39.96.24.206 "cd /www/wwwroot/hndcw.com && \
+ssh -p YOUR_SSH_PORT $SSHOPT root@YOUR_SERVER_IP "cd /www/wwwroot/hndcw.com && \
 curl -s --noproxy '*' -o /dev/null -w 'minger HTTP %{http_code}\n' https://hndcw.com/minger && \
 curl -s --noproxy '*' https://hndcw.com/css/minger.css | grep -c '新标记' && \
 pm2 logs hndcw --lines 20 --nostream 2>/dev/null | grep -i error | tail -5"
