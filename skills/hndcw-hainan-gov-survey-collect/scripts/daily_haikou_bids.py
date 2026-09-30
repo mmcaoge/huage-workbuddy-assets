@@ -21,8 +21,8 @@ import sys
 
 SSH_KEY = os.path.expanduser("~/.ssh/wb_auto2")
 KNOWN = r"D:\workBuddy\tmp\ssh\known_hosts"
-HOST = "root@39.96.24.206"
-PORT = "22222"
+HOST = "root@YOUR_SERVER_IP"
+PORT = "YOUR_SSH_PORT"
 ROOT = "/www/wwwroot/hndcw.com"
 OUT_DIR = r"D:\WorkBuddy\Delivery\workBuddy"
 
