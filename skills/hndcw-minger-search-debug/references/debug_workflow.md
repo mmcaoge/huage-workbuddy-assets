@@ -40,10 +40,10 @@ cp "C:/Users/琼崖纵队/.ssh/wb_auto2" "D:/.ssh_deploy/wb_auto2"
 cp "C:/Users/琼崖纵队/.ssh/known_hosts" "D:/.ssh_deploy/known_hosts"   # 若有
 
 # 服务器：备份 + 覆盖 + 重启
-ssh -p 22222 -i D:/.ssh_deploy/wb_auto2 -o UserKnownHostsFile=D:/.ssh_deploy/known_hosts root@39.96.24.206 \
+ssh -p YOUR_SSH_PORT -i D:/.ssh_deploy/wb_auto2 -o UserKnownHostsFile=D:/.ssh_deploy/known_hosts root@YOUR_SERVER_IP \
   "cp /www/wwwroot/hndcw.com/src/agent/index.js /tmp/bakN_index_$(date +%Y%m%d_%H%M%S).js"
-scp -P 22222 -i D:/.ssh_deploy/wb_auto2 -o UserKnownHostsFile=D:/.ssh_deploy/known_hosts \
-  index.js root@39.96.24.206:/www/wwwroot/hndcw.com/src/agent/index.js
+scp -P YOUR_SSH_PORT -i D:/.ssh_deploy/wb_auto2 -o UserKnownHostsFile=D:/.ssh_deploy/known_hosts \
+  index.js root@YOUR_SERVER_IP:/www/wwwroot/hndcw.com/src/agent/index.js
 ssh ... "node --check /www/wwwroot/hndcw.com/src/agent/index.js && pm2 restart hndcw"
 
 # 清理部署密钥（SAFE_DELETE 会拦 rm，用 PowerShell icacls /reset + Remove-Item）
